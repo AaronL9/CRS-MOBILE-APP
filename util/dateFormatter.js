@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-export function formatBirthDate(originalDateString) {
+export function fromatInputDate(originalDateString) {
   try {
     const formattedDate = format(originalDateString, "dd/MM/yyyy");
     return formattedDate;

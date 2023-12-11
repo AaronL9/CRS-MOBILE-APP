@@ -1,0 +1,22 @@
+export const reportType = ['Crime', "Accident"]
+export const crimes = [
+  "Robbery",
+  "Burglary",
+  "Assault",
+  "Fraud",
+  "Vandalism",
+  "Kidnapping",
+  "Homicide",
+  "Cybercrime",
+  "Shoplifting",
+  "Identity Theft",
+  "Drug Trafficking",
+  "Domestic Violence",
+  "Arson",
+  "Carjacking",
+  "Forgery",
+  "Human Trafficking",
+  "Embezzlement",
+  "Harassment",
+  "Public Intoxication",
+];

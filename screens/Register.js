@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { authFields } from "../util/authFieldProps";
-import { formatBirthDate } from "../util/dateFormatter";
+import { fromatInputDate } from "../util/dateFormatter";
 
 import { Colors } from "../constants/Colors";
 import { statusBarHeight } from "../constants/DeviceSizes";
@@ -35,7 +35,7 @@ export default function Register({ navigation }) {
     if (event.type === "set")
       setUserInput((prev) => ({
         ...prev,
-        ["birthdate"]: formatBirthDate(selectedDate),
+        ["birthdate"]: fromatInputDate(selectedDate),
       }));
   };
 
