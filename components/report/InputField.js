@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Colors } from "../../constants/Colors";
 
-export default function LocationField() {
+export default function InputField({ label }) {
   return (
     <View>
-      <Text style={styles.label}>Location</Text>
-      <TextInput style={styles.input} />
+      <Text style={styles.label}>{label}</Text>
+      <TextInput keyboardType="number-pad" style={styles.input} />
     </View>
   );
 }
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgDark,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: Colors.inputBorderColor, 
+    borderColor: Colors.inputBorderColor,
   },
 });

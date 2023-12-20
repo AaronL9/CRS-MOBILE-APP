@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { Colors } from "../constants/Colors";
@@ -8,8 +8,10 @@ import AuthField from "../components/authentication/AuthField";
 import AuthButton from "../components/authentication/AuthButton";
 import AuthNavigator from "../components/authentication/AuthNavigator";
 import AuthHeader from "../components/authentication/AuthHeader";
+import { AuthContext } from "../context/authContext";
 
 export default function Login({ navigation }) {
+  const authCtx = useContext(AuthContext)
   const [userInput, setUserInput] = useState({
     username: "",
     password: "",
@@ -21,6 +23,7 @@ export default function Login({ navigation }) {
 
   const loginHandler = () => {
     console.log(userInput)
+    authCtx.setIsLogin(true)
   };
 
   return (
