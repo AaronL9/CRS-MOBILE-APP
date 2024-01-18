@@ -14,11 +14,11 @@ export default function Hotline() {
       <View style={styles.hotlineNumberWrapper}>
         <View style={styles.emergencyHotline}>
           <Text style={styles.title}>DAGUPAN EMERGENCY HOTLINE NUMBERS:</Text>
-          {emergencyHotlineNumbers.map((data) => (
-            <View style={styles.hotlineContainer}>
+          {emergencyHotlineNumbers.map((data, index) => (
+            <View key={index} style={styles.hotlineContainer}>
               <Text style={{ color: "#e1ad01" }}>{data.label}:</Text>
-              {data.contactNo.map((contactNo) => (
-                <View style={styles.hotlineNumber}>
+              {data.contactNo.map((contactNo, index) => (
+                <View key={index} style={styles.hotlineNumber}>
                   <Octicons name="dot-fill" size={10} color="white" />
                   <Text style={styles.hotline}>{contactNo}</Text>
                 </View>
@@ -28,11 +28,11 @@ export default function Hotline() {
         </View>
         <View style={styles.emergencyHotline}>
           <Text style={styles.title}>BARANGAY PANTAL HOTLINE NUMBERS:</Text>
-          {barangayHotlines.map((data) => (
-            <View style={styles.hotlineContainer}>
+          {barangayHotlines.map((data, index) => (
+            <View key={index} style={styles.hotlineContainer}>
               <Text style={{ color: "#e1ad01" }}>{data.label}:</Text>
-              {data.contactNo.map((contactNo) => (
-                <View style={styles.hotlineNumber}>
+              {data.contactNo.map((contactNo, index) => (
+                <View key={index} style={styles.hotlineNumber}>
                   <Octicons name="dot-fill" size={10} color="white" />
                   <Text style={styles.hotline}>{contactNo}</Text>
                 </View>
@@ -42,11 +42,11 @@ export default function Hotline() {
         </View>
         <View style={styles.emergencyHotline}>
           <Text style={styles.title}>MAJOR HOTLINE NUMBERS:</Text>
-          {majorHotlines.map((data) => (
-            <View style={styles.hotlineContainer}>
+          {majorHotlines.map((data, index) => (
+            <View key={index} style={styles.hotlineContainer}>
               <Text style={{ color: "#e1ad01" }}>{data.label}:</Text>
-              {data.contactNo.map((contactNo) => (
-                <View style={styles.hotlineNumber}>
+              {data.contactNo.map((contactNo, index) => (
+                <View key={index} style={styles.hotlineNumber}>
                   <Octicons name="dot-fill" size={10} color="white" />
                   <Text style={styles.hotline}>{contactNo}</Text>
                 </View>

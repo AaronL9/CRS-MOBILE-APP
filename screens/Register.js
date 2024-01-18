@@ -62,7 +62,7 @@ export default function Register({ navigation }) {
         console.log(validateInputs);
         const data = await axios({
           method: "post",
-          url: "http://192.168.100.7:5000/api/users",
+          url: `${process.env.EXPO_PUBLIC_API_URL}/api/users`,
           data: validateInputs,
           headers: { "Content-Type": "application/json" },
         });
@@ -74,10 +74,6 @@ export default function Register({ navigation }) {
       }
     }
   };
-
-  useEffect(() => {
-    console.log(process.env.EXPO_PUBLIC_API);
-  }, [showDatePicker]);
 
   return (
     <View style={styles.root}>

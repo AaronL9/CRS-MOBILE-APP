@@ -18,6 +18,8 @@ export default function Dropdown({ label, options, onChangeHandler, keyName }) {
         )}
         buttonStyle={styles.dropdown}
         buttonTextStyle={{ color: "white" }}
+        dropdownStyle={{ borderRadius: 8 }}
+        rowStyle={{ borderWidth: 3, borderColor: "white" }}
       />
     </View>
   );
