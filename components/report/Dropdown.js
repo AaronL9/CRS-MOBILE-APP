@@ -8,7 +8,7 @@ export default function Dropdown({ label, options, onChangeHandler, keyName }) {
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <SelectDropdown
-        defaultValueByIndex={0}
+        defaultValue={options[0]}
         data={options}
         onSelect={(selectedItem, index) => {
           onChangeHandler(keyName, selectedItem);
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    color: 'white'
+    color: "white",
   },
   dropdown: {
     backgroundColor: Colors.bgDark,

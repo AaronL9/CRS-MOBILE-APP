@@ -1,4 +1,4 @@
-export const reportType = ["Crime", "Accident", "Hazards", "ARSON/FIRE"];
+export const reportType = ["Crime", "Accident", "Hazards", "Arson/Fire"];
 export const severityLevels = ["Minor", "Moderate", "Major", "Severe"];
 
 export const crimes = [
@@ -85,4 +85,35 @@ export const accidentTypes = [
   "Helicopter accidents",
   "Drone accidents",
   "Boat accidents",
+];
+
+export const hazardList = [
+  "Physical Hazards",
+  "Chemical Hazards",
+  "Biological Hazards",
+  "Ergonomic Hazards",
+  "Radiation Hazards",
+  "Psychosocial Hazards",
+  "Environmental Hazards",
+  "Electrical Hazards",
+  "Fire Hazards",
+];
+
+export const arsonFireTypes = [
+  "Incendiary Fire",
+  "Accidental Fire",
+  "Electrical Fire",
+  "Wildfire",
+  "Arson for Profit",
+  "Vehicle Arson",
+  "Structure Fire",
+  "Arson for Vandalism",
+  "Arson for Revenge",
+  "Arson for Hate Crimes",
+  "Molotov Cocktail",
+  "Spontaneous Combustion",
+  "Gasoline Fire",
+  "Industrial Fire",
+  "Terrorist Arson",
+  "Pyromania",
 ];

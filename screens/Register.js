@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useContext, useState, useEffect } from "react";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
 import { authFields } from "../util/authFieldProps";
 import { fromatInputDate } from "../util/dateFormatter";
@@ -12,17 +14,22 @@ import AuthField from "../components/authentication/AuthField";
 import AuthButton from "../components/authentication/AuthButton";
 import AuthNavigator from "../components/authentication/AuthNavigator";
 import AuthHeader from "../components/authentication/AuthHeader";
+import {
+  authError,
+  validateSignupCredentials,
+} from "../util/validateCredentials";
 
 export default function Register({ navigation }) {
+  const authCtx = useContext(AuthContext);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  const [errors, setErrors] = useState({});
   const [userInput, setUserInput] = useState({
-    username: "",
+    name: "",
     email: "",
-    birthdate: "mm/dd/yyyy",
+    birthday: "dd/mm/yyyy",
     sex: "",
     address: "",
-    contactNum: "",
+    contact_no: "",
     password: "",
   });
 
@@ -35,21 +42,46 @@ export default function Register({ navigation }) {
     if (event.type === "set")
       setUserInput((prev) => ({
         ...prev,
-        ["birthdate"]: fromatInputDate(selectedDate),
+        ["birthday"]: fromatInputDate(selectedDate),
       }));
   };
 
-  const registerHandler = () => {
-    console.log(userInput);
+  const registerHandler = async () => {
+    const { valid, validateInputs } = validateSignupCredentials(
+      userInput,
+      setErrors
+    );
+    if (valid) {
+      try {
+        authCtx.setAuthenticating(true);
+        const { uid } = await authCtx.signUp(
+          validateInputs.email,
+          validateInputs.password
+        );
+        validateInputs.id = uid;
+        console.log(validateInputs);
+        const data = await axios({
+          method: "post",
+          url: "http://192.168.100.7:5000/api/users",
+          data: validateInputs,
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log(data.status);
+      } catch (error) {
+        console.log(error);
+        Alert.alert("Can't Sign you in", authError(error));
+        authCtx.setAuthenticating(false);
+      }
+    }
   };
 
-  // useEffect(() => {
-  //   console.log(showDatePicker);
-  // }, [showDatePicker]);
+  useEffect(() => {
+    console.log(process.env.EXPO_PUBLIC_API);
+  }, [showDatePicker]);
 
   return (
     <View style={styles.root}>
-      <ScrollView>
+      <ScrollView style={{ marginBottom: 16 }}>
         <View style={styles.container}>
           <AuthHeader text="Registration" />
           <View style={styles.controlls}>
@@ -60,12 +92,13 @@ export default function Register({ navigation }) {
                 value={userInput[obj.key]}
                 setValue={onChangeUserInputHandler}
                 pressHanlder={
-                  obj.key === "birthdate"
+                  obj.key === "birthday"
                     ? () => {
                         setShowDatePicker(true);
                       }
                     : () => {}
                 }
+                error={errors}
                 {...obj.props}
               />
             ))}

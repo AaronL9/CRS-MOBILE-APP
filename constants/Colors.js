@@ -5,4 +5,5 @@ export const Colors = {
   inputBgColor: "#3b3b3b",
   inputBorderColor: "#757575",
   accent400: "#3b82f6",
+  error400: "#fc5656",
 };

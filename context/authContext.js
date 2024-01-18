@@ -1,16 +1,64 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../config/firebase";
 
 export const AuthContext = createContext({
-  isLogin: false,
-  setIsLogin: () => {},
+  user: null,
+  signUp: () => {},
+  login: () => {},
+  logout: () => {},
+  authenticating: false,
+  setAuthenticating: () => {},
 });
 
 export default function AuthContextProvider({ children }) {
-  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [authenticating, setAuthenticating] = useState(true);
+
+  async function signUp(email, password) {
+    const snapshot = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return { uid: snapshot.user.uid };
+  }
+
+  async function login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  function logout() {
+    return signOut(auth);
+  }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setLoading(false);
+      setAuthenticating(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const value = {
+    user,
+    signUp,
+    login,
+    logout,
+    authenticating,
+    setAuthenticating,
+  };
 
   return (
-    <AuthContext.Provider value={{ setIsLogin, isLogin }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 }

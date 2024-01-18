@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { Colors } from "../constants/Colors";
 import { statusBarHeight } from "../constants/DeviceSizes";
@@ -9,21 +9,29 @@ import AuthButton from "../components/authentication/AuthButton";
 import AuthNavigator from "../components/authentication/AuthNavigator";
 import AuthHeader from "../components/authentication/AuthHeader";
 import { AuthContext } from "../context/authContext";
+import { authError } from "../util/validateCredentials";
 
 export default function Login({ navigation }) {
-  const authCtx = useContext(AuthContext)
+
+  const { login, setAuthenticating } = useContext(AuthContext);
   const [userInput, setUserInput] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
   const onChangeUserInputHandler = (key, enteredValue) => {
-    setUserInput((prev) => ({ ...prev, [key]: enteredValue }));
+    setUserInput((prev) => ({ ...prev, [key]: enteredValue.trim() }));
   };
 
-  const loginHandler = () => {
-    console.log(userInput)
-    authCtx.setIsLogin(true)
+  const loginHandler = async () => {
+    setAuthenticating(true);
+    try {
+      await login(userInput.email, userInput.password);
+    } catch (error) {
+      Alert.alert("Can't log you in",authError(error.code));
+      console.log(error.code)
+      setAuthenticating(false);
+    }
   };
 
   return (
@@ -32,9 +40,9 @@ export default function Login({ navigation }) {
         <AuthHeader text="Login" />
         <View style={styles.controlls}>
           <AuthField
-            label="Username"
+            label="Email"
             setValue={onChangeUserInputHandler}
-            inputKey={"username"}
+            inputKey={"email"}
             value={userInput.username}
           />
           <AuthField

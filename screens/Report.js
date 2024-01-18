@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Button, StyleSheet, View, ScrollView } from "react-native";
 
 // utility
 import {
   accidentTypes,
+  arsonFireTypes,
   crimes,
+  hazardList,
   locationOptions,
   reportType,
 } from "../util/reportData";
@@ -17,6 +19,7 @@ import UploadMedia from "../components/report/UploadMedia";
 import Accident from "../components/report/type/Accident";
 import { pickMedia } from "../util/mediaPicker";
 import Uploads from "../components/report/upload_preview/Uploads";
+import { Colors } from "../constants/Colors";
 
 export default function Report() {
   const [reportDetails, setReportDetails] = useState({
@@ -37,35 +40,59 @@ export default function Report() {
     setReportDetails((prevValue) => ({ ...prevValue, [key]: value }));
   };
 
-  useEffect(() => {
-
-  }, [reportDetails]);
-
-  return (
-    <ScrollView style={{ paddingTop: 25 }}>
-      <View style={styles.rootConainer}>
-        <Text style={styles.title}>Report an Incident</Text>
-        <Dropdown
-          label="Report Type"
-          options={reportType}
-          onChangeHandler={onChangeHandler}
-          keyName="reportType"
-        />
-        {reportDetails.reportType === "Crime" ? (
+  function reportTypeSubOptions(reportType) {
+    switch (reportType) {
+      case "Crime":
+        return (
           <Dropdown
             label="Crime"
             options={crimes}
             onChangeHandler={onChangeHandler}
             keyName="crime"
           />
-        ) : (
+        );
+      case "Accident":
+        return (
           <Dropdown
             label="Accident Type"
             options={accidentTypes}
             onChangeHandler={onChangeHandler}
             keyName="accidentType"
           />
-        )}
+        );
+      case "Hazards":
+        return (
+          <Dropdown
+            label="Hazard Type"
+            options={hazardList}
+            onChangeHandler={onChangeHandler}
+            keyName="hazardType"
+          />
+        );
+      case "Arson/Fire":
+        return (
+          <Dropdown
+            label="Arson/Fire Type"
+            options={arsonFireTypes}
+            onChangeHandler={onChangeHandler}
+            keyName="arsonFireType"
+          />
+        );
+    }
+  }
+
+  useEffect(() => {}, [reportDetails]);
+
+  return (
+    <ScrollView style={{ paddingTop: 25, backgroundColor: Colors.bgDark }}>
+      <View style={styles.rootConainer}>
+        <Dropdown
+          label="Report Type"
+          options={reportType}
+          onChangeHandler={onChangeHandler}
+          keyName="reportType"
+        />
+        {reportTypeSubOptions(reportDetails.reportType)}
         <Accident onChangeHandler={onChangeHandler} />
         <TextArea label="Description" onChangeHanlder={onChangeHandler} />
         <Dropdown

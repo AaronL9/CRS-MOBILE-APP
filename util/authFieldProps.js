@@ -1,9 +1,16 @@
 export const authFields = [
-  { key: "username", props: { label: "Username" } },
+  { key: "name", props: { label: "name" } },
   { key: "email", props: { label: "Email" } },
-  { key: "birthdate", props: { label: "Birthdate", isEditable: false } },
+  { key: "birthday", props: { label: "Birthdate", isEditable: false } },
   { key: "sex", props: { label: "Sex" } },
-  { key: "address", props: { label: "Address" } },
-  { key: "contactNum", props: { label: "Contact Number", mode: "numeric" } },
+  {
+    key: "address",
+    props: {
+      label: "Address",
+      addressFormat: "(street, house no., barangay, municipality, country)",
+      placeholder: "e.g. PNR, 0253, Mayombo, Dagupan City, Philippines",
+    },
+  },
+  { key: "contact_no", props: { label: "Contact Number", mode: "numeric" } },
   { key: "password", props: { label: "Password", isPasswordField: true } },
 ];
