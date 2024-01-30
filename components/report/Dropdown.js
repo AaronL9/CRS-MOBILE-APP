@@ -3,7 +3,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 import SelectDropdown from "react-native-select-dropdown";
 
-export default function Dropdown({ label, options, onChangeHandler, keyName }) {
+export default function Dropdown({
+  label,
+  options,
+  onChangeHandler,
+  keyName,
+  subKey = "",
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -11,7 +17,7 @@ export default function Dropdown({ label, options, onChangeHandler, keyName }) {
         defaultValue={options[0]}
         data={options}
         onSelect={(selectedItem, index) => {
-          onChangeHandler(keyName, selectedItem);
+          onChangeHandler(keyName, selectedItem, subKey);
         }}
         renderDropdownIcon={() => (
           <MaterialIcons name="keyboard-arrow-down" size={24} color="white" />

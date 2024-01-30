@@ -33,8 +33,12 @@ export default function AuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  function logout() {
-    return signOut(auth);
+  async function logout() {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.log(error.code, error.message);
+    }
   }
 
   useEffect(() => {

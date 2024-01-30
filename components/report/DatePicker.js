@@ -15,13 +15,14 @@ export default function DatePicker({ keyName, setUserInput }) {
 
   const onChangeDateHandler = (event, selectedDate) => {
     setShowDatePicker(false);
-    console.log(selectedDate)
+    console.log(selectedDate);
     if (event.type === "set") {
       const formattedDate = fromatInputDate(selectedDate);
       setDateValue(formattedDate);
       setUserInput((prev) => ({
         ...prev,
         [keyName]: formattedDate,
+        incident_date: formattedDate,
       }));
     }
   };
@@ -76,7 +77,7 @@ export default function DatePicker({ keyName, setUserInput }) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16    
+    gap: 16,
   },
   label: {
     fontSize: 18,

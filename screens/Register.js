@@ -24,13 +24,14 @@ export default function Register({ navigation }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errors, setErrors] = useState({});
   const [userInput, setUserInput] = useState({
+    id: "",
     name: "",
+    profilePic: "",
     email: "",
     birthday: "dd/mm/yyyy",
     sex: "",
     address: "",
     contact_no: "",
-    password: "",
   });
 
   const onChangeUserInputHandler = (key, enteredValue) => {
@@ -62,14 +63,15 @@ export default function Register({ navigation }) {
         console.log(validateInputs);
         const data = await axios({
           method: "post",
-          url: `${process.env.EXPO_PUBLIC_API_URL}/api/users`,
+          url: `https://crs-api.onrender.com/api/users`,
           data: validateInputs,
           headers: { "Content-Type": "application/json" },
         });
         console.log(data.status);
       } catch (error) {
         console.log(error);
-        Alert.alert("Can't Sign you in", authError(error));
+        authCtx.logout();
+        Alert.alert("Can't Sign you in", authError(error.code));
         authCtx.setAuthenticating(false);
       }
     }

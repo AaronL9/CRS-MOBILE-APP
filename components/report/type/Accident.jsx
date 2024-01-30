@@ -6,13 +6,23 @@ import InputField from "../InputField";
 export default function Accident({ onChangeHandler }) {
   return (
     <View style={styles.container}>
-      <InputField label="No. of Casualties" />
-      <InputField label="No. of Injury" />
+      <InputField
+        label="No. of Casualties"
+        type={"number-pad"}
+        onChangeHandler={onChangeHandler}
+        keyName="casualties"
+      />
+      <InputField
+        label="No. of Injury"
+        type={"number-pad"}
+        keyName="injured"
+        onChangeHandler={onChangeHandler}
+      />
       <Dropdown
         label="Injury Severity"
         options={severityLevels}
         onChangeHandler={onChangeHandler}
-        keyName='injurySeverity' 
+        keyName="fatalities"
       />
     </View>
   );

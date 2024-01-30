@@ -22,7 +22,7 @@ export const validateSignupCredentials = (values, setErrors) => {
   };
 
   if (!values.name.trim()) {
-    errors.name = "Username is required";
+    errors.name = "Name is required";
   }
   if (!values.email.trim()) {
     errors.email = "Email is required";
@@ -36,7 +36,7 @@ export const validateSignupCredentials = (values, setErrors) => {
     errors.address = "Address is required";
   }
   if (!values.sex.trim()) {
-    errors.sex = "Gender is required";
+    errors.sex = "Sex is required";
   }
   if (!values.contact_no.trim()) {
     errors.contactNum = "Contact Number is required";

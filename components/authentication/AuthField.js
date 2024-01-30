@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: Colors.error400,
+    marginVertical: -5,
   },
   textInput: {
     backgroundColor: Colors.inputBgColor,

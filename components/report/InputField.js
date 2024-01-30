@@ -1,11 +1,21 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Colors } from "../../constants/Colors";
 
-export default function InputField({ label }) {
+export default function InputField({
+  label,
+  type,
+  onChangeHandler,
+  keyName,
+  subKey = "",
+}) {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInput keyboardType="number-pad" style={styles.input} />
+      <TextInput
+        keyboardType={type}
+        onChangeText={(value) => onChangeHandler(keyName, value, subKey)}
+        style={styles.input}
+      />
     </View>
   );
 }
