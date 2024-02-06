@@ -2,18 +2,21 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 
-export default function UploadMedia({ onPressHandler, label, icon }) {
+export default function UploadImage({ onPressHandler }) {
   return (
     <View style={styles.uploadContainer}>
       <Pressable style={styles.uploadButton} onPress={onPressHandler}>
-        <Entypo name={icon} size={24} color="white" />
-        <Text style={styles.buttonText}>{label}</Text>
+        <Entypo name="camera" size={24} color="white" />
+        <Text style={styles.buttonText}>Upload images</Text>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  uploadContainer: {
+    marginVertical: 3,
+  },
   uploadButton: {
     flexDirection: "row",
     justifyContent: "center",

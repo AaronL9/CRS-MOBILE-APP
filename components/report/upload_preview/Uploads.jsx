@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import FileNamePreview from "./FileNamePreview";
 import { extractFilename } from "../../../util/stringFormatter";
 
-export default function Uploads({ files, onRemove, isLoading }) {
+export default function Uploads({ files, onRemove, isLoading, label }) {
   return (
     <View style={styles.uploadContainer}>
       {files.length !== 0 && (
@@ -18,7 +18,7 @@ export default function Uploads({ files, onRemove, isLoading }) {
           ))}
         </View>
       )}
-      {files.length === 0 && !isLoading && <Text>No image/videos attach</Text>}
+      {files.length === 0 && !isLoading && <Text>No {label}</Text>}
       {isLoading && <ActivityIndicator size="small" color="black" />}
     </View>
   );

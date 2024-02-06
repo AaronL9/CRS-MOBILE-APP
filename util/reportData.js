@@ -3,6 +3,7 @@ export const severityLevels = ["Minor", "Moderate", "Major", "Severe"];
 
 export const crimes = [
   "Robbery",
+  "Murder",
   "Burglary",
   "Assault",
   "Fraud",
@@ -23,7 +24,23 @@ export const crimes = [
   "Public Intoxication",
 ];
 
+export const murderTypes = [
+  "Homicide",
+  "Manslaughter",
+  "Assassination",
+  "Serial Killing",
+  "Mass Murder",
+  "Domestic Violence",
+  "Gang-related Murder",
+  "Robbery-related Murder",
+  "Drug-related Murder",
+  "Honor Killing",
+  "Drive-by Shooting",
+  "Child Abuse-related Murder",
+];
+
 export const locationOptions = [
+  "Pantal",
   "Bacayao Norte",
   "Bacayao Sur",
   "Bolosan",
@@ -42,7 +59,6 @@ export const locationOptions = [
   "Mamalingling",
   "Mangin",
   "Mayombo",
-  "Pantal",
   "Poblacion Oeste",
   "Pogo Chico",
   "Pogo Grande",
