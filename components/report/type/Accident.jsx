@@ -10,19 +10,19 @@ export default function Accident({ onChangeHandler }) {
         label="Number of casualties"
         type={"number-pad"}
         onChangeHandler={onChangeHandler}
-        keyName="casualties"
+        keyName="numberOfCasualties"
       />
       <InputField
         label="Number of injuries"
         type={"number-pad"}
-        keyName="injured"
+        keyName="numberOfInjuries"
         onChangeHandler={onChangeHandler}
       />
       <Dropdown
         label="Injury Severity"
         options={severityLevels}
         onChangeHandler={onChangeHandler}
-        keyName="fatalities"
+        keyName="injurySeverity"
       />
     </View>
   );

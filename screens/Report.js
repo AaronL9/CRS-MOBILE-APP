@@ -33,12 +33,9 @@ export default function Report() {
   const authCtx = useContext(AuthContext);
   const defaultReportDetails = {
     reportType: "Crime",
-    type_crime: "robbery",
-    name_crime: "robbery",
-    murder_type: "Homicide",
+    type: "robbery",
     photoURL: [],
-    videoURL: [],
-    accidentTypes: accidentTypes[0],
+    videoURL: "",
     description: "",
     location: {
       street: "",
@@ -46,12 +43,11 @@ export default function Report() {
       municipality: "Dagupan City",
     },
     date: "",
-    incident_date: "",
-    casualties: 0,
-    fatalitites: "minor",
-    injured: 0,
-    vehicle_type: "Car",
+    numberOfCasualties: 0,
+    numberOfInjuries: 0,
+    injurySeverity: "Minor",
     userId: authCtx.user.uid,
+    action_status: "Pending",
   };
   const [reportDetails, setReportDetails] = useState(defaultReportDetails);
 
@@ -78,8 +74,6 @@ export default function Report() {
       setReportDetails((prevValue) => ({
         ...prevValue,
         [key]: value,
-        name_crime: prevValue.type_crime,
-        incident_date: prevValue.date,
       }));
   };
 
@@ -120,26 +114,22 @@ export default function Report() {
       })
     );
 
-    return videoUrls;
+    return videoUrls[0];
   };
 
   const submitHandler = async () => {
     setIsSubmitting(true);
-    const endpoints =
-      reportDetails.reportType === "Crime"
-        ? "crime-reports"
-        : "accident-reports";
 
     try {
       reportDetails.photoURL = await uploadImages(images, authCtx.user.uid);
       reportDetails.videoURL = await uploadVideos(videos, authCtx.user.uid);
       await axios({
         method: "post",
-        url: `https://${process.env.EXPO_PUBLIC_API_URL}/api/${endpoints}`,
+        url: `https://crs-api.onrender.com/api/reports/`,
         data: reportDetails,
         headers: { "Content-Type": "application/json" },
       });
-      Alert.alert("Submitted Successfully");
+      Alert.alert("Success", "Your report has been submitted");
     } catch (error) {
       console.log(error.message);
     }
@@ -154,7 +144,7 @@ export default function Report() {
             label="Crime Type"
             options={crimes}
             onChangeHandler={onChangeHandler}
-            keyName="type_crime"
+            keyName="type"
             listen={reportDetails.reportType}
           />
         );
@@ -164,7 +154,7 @@ export default function Report() {
             label="Accident Type"
             options={accidentTypes}
             onChangeHandler={onChangeHandler}
-            keyName="accidentType"
+            keyName="type"
             listen={reportDetails.reportType}
           />
         );
@@ -174,7 +164,7 @@ export default function Report() {
             label="Hazard Type"
             options={hazardList}
             onChangeHandler={onChangeHandler}
-            keyName="hazardType"
+            keyName="type"
             listen={reportDetails.reportType}
           />
         );
@@ -184,12 +174,22 @@ export default function Report() {
             label="Arson/Fire Type"
             options={arsonFireTypes}
             onChangeHandler={onChangeHandler}
-            keyName="arsonFireType"
+            keyName="type"
             listen={reportDetails.reportType}
           />
         );
     }
   }
+
+  useEffect(() => {
+    if (
+      reportDetails.type !== "Murder" &&
+      reportDetails.hasOwnProperty("murderType")
+    ) {
+      const { murderType, ...newObj } = reportDetails;
+      setReportDetails(newObj);
+    }
+  }, [reportDetails.type]);
 
   useEffect(() => {
     console.log(reportDetails);
@@ -205,13 +205,13 @@ export default function Report() {
           keyName="reportType"
         />
         {reportTypeSubOptions(reportDetails.reportType)}
-        {reportDetails.type_crime === "Murder" &&
+        {reportDetails.type === "Murder" &&
           reportDetails.reportType === "Crime" && (
             <Dropdown
               label="Murder type"
               options={murderTypes}
               onChangeHandler={onChangeHandler}
-              keyName="murder_type"
+              keyName="murderType"
             />
           )}
         <Accident onChangeHandler={onChangeHandler} />

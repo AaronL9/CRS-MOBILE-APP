@@ -49,7 +49,7 @@ export const pickImages = async (setFiles, setIsLoading, files) => {
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 0,
+      quality: 1,
       allowsMultipleSelection: true,
       selectionLimit: 4,
     });
