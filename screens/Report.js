@@ -42,7 +42,7 @@ export default function Report() {
     description: "",
     location: {
       street: "",
-      barangay: "Bacayao Norte",
+      barangay: "Pantal",
       municipality: "Dagupan City",
     },
     date: "",
@@ -135,7 +135,7 @@ export default function Report() {
       reportDetails.videoURL = await uploadVideos(videos, authCtx.user.uid);
       await axios({
         method: "post",
-        url: `https://crs-api.onrender.com/api/${endpoints}`,
+        url: `https://${process.env.EXPO_PUBLIC_API_URL}/api/${endpoints}`,
         data: reportDetails,
         headers: { "Content-Type": "application/json" },
       });
@@ -143,7 +143,6 @@ export default function Report() {
     } catch (error) {
       console.log(error.message);
     }
-    console.log(reportDetails);
     setIsSubmitting(false);
   };
 
