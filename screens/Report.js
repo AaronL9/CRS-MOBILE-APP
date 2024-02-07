@@ -27,6 +27,7 @@ import UploadMedia from "../components/report/UploadMedia";
 import Accident from "../components/report/type/Accident";
 import Uploads from "../components/report/upload_preview/Uploads";
 import InputField from "../components/report/InputField";
+import CrimeDropdown from "../components/report/CrimeDropdown";
 
 export default function Report() {
   const authCtx = useContext(AuthContext);
@@ -150,44 +151,50 @@ export default function Report() {
     switch (reportType) {
       case "Crime":
         return (
-          <Dropdown
-            label="Crime"
+          <CrimeDropdown
+            label="Crime Type"
             options={crimes}
             onChangeHandler={onChangeHandler}
             keyName="type_crime"
+            listen={reportDetails.reportType}
           />
         );
       case "Accident":
         return (
-          <Dropdown
+          <CrimeDropdown
             label="Accident Type"
             options={accidentTypes}
             onChangeHandler={onChangeHandler}
             keyName="accidentType"
+            listen={reportDetails.reportType}
           />
         );
       case "Hazards":
         return (
-          <Dropdown
+          <CrimeDropdown
             label="Hazard Type"
             options={hazardList}
             onChangeHandler={onChangeHandler}
             keyName="hazardType"
+            listen={reportDetails.reportType}
           />
         );
       case "Arson/Fire":
         return (
-          <Dropdown
+          <CrimeDropdown
             label="Arson/Fire Type"
             options={arsonFireTypes}
             onChangeHandler={onChangeHandler}
             keyName="arsonFireType"
+            listen={reportDetails.reportType}
           />
         );
     }
   }
 
-  useEffect(() => {}, [reportDetails]);
+  useEffect(() => {
+    console.log(reportDetails);
+  }, [reportDetails]);
 
   return (
     <ScrollView style={{ paddingTop: 25, backgroundColor: Colors.bgDark }}>
@@ -199,14 +206,15 @@ export default function Report() {
           keyName="reportType"
         />
         {reportTypeSubOptions(reportDetails.reportType)}
-        {reportDetails.type_crime === "Murder" && (
-          <Dropdown
-            label="Murder type"
-            options={murderTypes}
-            onChangeHandler={onChangeHandler}
-            keyName="murder_type"
-          />
-        )}
+        {reportDetails.type_crime === "Murder" &&
+          reportDetails.reportType === "Crime" && (
+            <Dropdown
+              label="Murder type"
+              options={murderTypes}
+              onChangeHandler={onChangeHandler}
+              keyName="murder_type"
+            />
+          )}
         <Accident onChangeHandler={onChangeHandler} />
         <TextArea label="Description" onChangeHanlder={onChangeHandler} />
         <View>

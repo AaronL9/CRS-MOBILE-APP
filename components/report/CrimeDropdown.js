@@ -4,16 +4,17 @@ import { Colors } from "../../constants/Colors";
 import SelectDropdown from "react-native-select-dropdown";
 import { useEffect } from "react";
 
-export default function Dropdown({
+export default function CrimeDropdown({
   label,
   options,
   onChangeHandler,
   keyName,
   subKey = "",
+  listen,
 }) {
   useEffect(() => {
     onChangeHandler(keyName, options[0], subKey);
-  }, []);
+  }, [listen]);
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
