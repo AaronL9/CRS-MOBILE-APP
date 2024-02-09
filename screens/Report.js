@@ -123,15 +123,16 @@ export default function Report() {
     try {
       reportDetails.photoURL = await uploadImages(images, authCtx.user.uid);
       reportDetails.videoURL = await uploadVideos(videos, authCtx.user.uid);
-      await axios({
+      const { data } = await axios({
         method: "post",
-        url: `https://crs-api.onrender.com/api/reports/`,
+        url: `https://${process.env.EXPO_PUBLIC_API_URL}/api/reports/`,
         data: reportDetails,
         headers: { "Content-Type": "application/json" },
       });
       Alert.alert("Success", "Your report has been submitted");
+      console.log(data);
     } catch (error) {
-      console.log(error.message);
+      Alert.alert("Submit failed", error.response.data.error);
     }
     setIsSubmitting(false);
   };

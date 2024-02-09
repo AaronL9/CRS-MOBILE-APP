@@ -57,7 +57,9 @@ export default function DatePicker({ keyName, setUserInput }) {
           style={styles.dateInput}
           onPress={() => setShowTimePicker(true)}
         >
-          <Text style={styles.dateValue}>{timeValue}</Text>
+          <Text style={styles.dateValue}>
+            {timeValue} <Text style={{ color: "grey" }}>(optional)</Text>
+          </Text>
           <Entypo name="clock" size={24} color="white" />
         </Pressable>
         {showTimePicker && (
