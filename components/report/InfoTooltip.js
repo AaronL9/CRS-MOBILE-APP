@@ -48,8 +48,8 @@ export default function InfoTooltip() {
       <TouchableOpacity
         style={{
           backgroundColor: "#3c4c85",
-          paddingVertical: 4,
-          paddingHorizontal: 2,
+          paddingVertical: 6,
+          paddingHorizontal: 4,
           borderRadius: 8,
         }}
         onPress={() => setIsVisible(true)}
