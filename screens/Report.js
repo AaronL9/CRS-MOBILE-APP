@@ -28,6 +28,8 @@ import Accident from "../components/report/type/Accident";
 import Uploads from "../components/report/upload_preview/Uploads";
 import InputField from "../components/report/InputField";
 import CrimeDropdown from "../components/report/CrimeDropdown";
+import VideoPreview from "../components/report/VideoPreview";
+import InfoTooltip from "../components/report/InfoTooltip";
 
 export default function Report() {
   const authCtx = useContext(AuthContext);
@@ -54,6 +56,7 @@ export default function Report() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [videoPreview, setVideoPreview] = useState([]);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingVideos, setIsUploadingVideos] = useState(false);
 
@@ -62,6 +65,7 @@ export default function Report() {
   };
   const removeVideoHanlder = (indexId) => {
     setVideos((prev) => prev.filter((_, index) => index !== indexId));
+    setVideoPreview((prev) => prev.filter((_, index) => index !== indexId));
   };
 
   const onChangeHandler = (key, value, subKey) => {
@@ -235,6 +239,7 @@ export default function Report() {
         </View>
         <DatePicker setUserInput={setReportDetails} keyName={"date"} />
         <View style={styles.uploadBtn}>
+          <InfoTooltip />
           <UploadMedia
             onPressHandler={pickImages.bind(
               this,
@@ -263,10 +268,17 @@ export default function Report() {
           label="images uploaded"
         />
         <Uploads
-          files={videos}
+          files={videoPreview}
           onRemove={removeVideoHanlder}
           isLoading={isUploadingVideos}
           label="videos uploaded"
+        />
+
+        <VideoPreview
+          videoUri={videos[0]}
+          setVideos={setVideos}
+          setPreview={setVideoPreview}
+          setLoading={setIsUploadingVideos}
         />
         <View style={{ marginVertical: 12 }}>
           <Button

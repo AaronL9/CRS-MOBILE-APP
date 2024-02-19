@@ -55,6 +55,9 @@ export const pickImages = async (setFiles, setIsLoading, files) => {
     });
 
     if (!result.canceled) {
+      if (result.assets.length + files.length > 4)
+        throw new Error("You've reach the maximum number of image to upload");
+
       setFiles((prev) => prev.concat(result.assets));
     }
   } catch (error) {
@@ -78,12 +81,14 @@ export const pickVideos = async (setFiles, setIsLoading, files) => {
 
     if (!result.canceled) {
       setFiles((prev) => prev.concat(result.assets));
+    } else {
+      setIsLoading(false);
     }
   } catch (error) {
     Alert.alert("Sorry", error.message);
     console.log("Error while selecting file: ", error);
+    setIsLoading(false);
   }
-  setIsLoading(false);
 };
 
 export const launchVideoCamera = async (setFiles, setIsLoading) => {

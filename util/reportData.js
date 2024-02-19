@@ -1,5 +1,5 @@
 export const reportType = ["Crime", "Accident", "Hazards", "Arson/Fire"];
-export const severityLevels = ["Minor", "Moderate", "Major", "Severe"];
+export const severityLevels = ["Minor", "Moderate", "Severe"];
 
 export const crimes = [
   "Robbery",

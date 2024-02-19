@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
@@ -55,18 +55,20 @@ export default function Register({ navigation }) {
     if (valid) {
       try {
         authCtx.setAuthenticating(true);
+
         const { uid } = await authCtx.signUp(
           validateInputs.email,
           validateInputs.password
         );
         validateInputs.id = uid;
-        console.log(validateInputs);
+
         const data = await axios({
           method: "post",
           url: `https://crs-api.onrender.com/api/users`,
           data: validateInputs,
           headers: { "Content-Type": "application/json" },
         });
+
         console.log(data.status);
       } catch (error) {
         console.log(error);
