@@ -56,7 +56,7 @@ export default function InfoTooltip() {
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <Ionicons name="information-circle" size={24} color="white" />
-          <Text style={{ color: "white" }}>Please read this guidlines</Text>
+          <Text style={{ color: "white" }}>Please read this guidelines</Text>
         </View>
       </TouchableOpacity>
     </Tooltip>
